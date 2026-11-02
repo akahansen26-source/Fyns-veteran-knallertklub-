@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    // optional
+  async redirects() {
+    // Gamle adresser fra den første version
+    return [
+      { source: "/events", destination: "/arrangementer", permanent: true },
+      { source: "/about", destination: "/om-klubben", permanent: true },
+    ];
   },
 };
 
