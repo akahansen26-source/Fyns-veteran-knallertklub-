@@ -265,3 +265,6 @@ input:focus, textarea:focus { outline: 3px solid rgba(230, 229, 36, 0.7); border
 .thumb-cell { width: 64px; }
 .thumb { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; display: block; }
 .thumb-empty { background: var(--yellow-soft); border: 1px solid var(--line); }
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 64px !important; }
+.pw-toggle { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: var(--yellow-soft); font: 700 0.85rem var(--body); padding: 6px 10px; border-radius: 8px; cursor: pointer; }

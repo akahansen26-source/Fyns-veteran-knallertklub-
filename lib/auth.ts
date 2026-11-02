@@ -22,10 +22,10 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 export function checkPassword(password: string): boolean {
-  const real = process.env.ADMIN_PASSWORD;
+  const real = process.env.ADMIN_PASSWORD?.trim();
   if (!real) return false;
-  // Sammenlign HMAC'er, så længden ikke afslører noget
-  return safeEqual(sign("pw:" + password), sign("pw:" + real));
+  // Mellemrum før/efter ignoreres. Sammenlign HMAC'er, så længden ikke afslører noget.
+  return safeEqual(sign("pw:" + password.trim()), sign("pw:" + real));
 }
 
 export async function createSession() {
