@@ -1,7 +1,10 @@
 export default function About() {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Om Fyns Veteranknallert Klub</h1>
+      <div className="text-center mb-6">
+        <img src="/logo.jpg" alt="Fyns Veteranknallert Klub" className="mx-auto h-32 w-auto" />
+      </div>
+      <h1 className="text-3xl font-bold mb-6 text-center">Om Fyns Veteranknallert Klub</h1>
       <p className="mb-4">
         Klubben blev stiftet i 1984. Vores formål er at bevare interessen for veteranknallerter, 
         især dansk producerede modeller, og skabe et fællesskab for entusiaster.
