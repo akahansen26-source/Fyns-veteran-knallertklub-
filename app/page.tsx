@@ -14,6 +14,10 @@ export default async function Home() {
 
   return (
     <div>
+      <div className="text-center mb-8">
+        <img src="/logo.jpg" alt="Fyns Veteranknallert Klub" className="mx-auto h-40 w-auto mb-4" />
+      </div>
+
       <div className="bg-yellow-400 text-center py-8 mb-8 rounded-lg border-4 border-red-600">
         <h2 className="text-4xl font-bold mb-2">Velkommen til Fyns Veteranknallert Klub</h2>
         <p className="text-xl">Stiftet 1984 · WWW.123FVKK.DK</p>
