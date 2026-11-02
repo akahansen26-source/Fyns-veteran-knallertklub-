@@ -12,7 +12,10 @@ export default async function EventsPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Arrangementer</h1>
+      <div className="text-center mb-6">
+        <img src="/logo.jpg" alt="Fyns Veteranknallert Klub" className="mx-auto h-28 w-auto" />
+      </div>
+      <h1 className="text-3xl font-bold mb-6 text-center">Arrangementer</h1>
       {all.length === 0 ? (
         <p>Ingen arrangementer endnu.</p>
       ) : (
