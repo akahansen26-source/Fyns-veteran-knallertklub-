@@ -9,6 +9,7 @@ const NAV = [
   { href: "/admin", label: "Oversigt" },
   { href: "/admin/arrangementer", label: "Arrangementer" },
   { href: "/admin/nyheder", label: "Nyheder" },
+  { href: "/admin/bestyrelsen", label: "Bestyrelsen" },
   { href: "/admin/sider", label: "Sider" },
   { href: "/admin/galleri", label: "Billeder & galleri" },
   { href: "/admin/indstillinger", label: "Indstillinger & logo" },

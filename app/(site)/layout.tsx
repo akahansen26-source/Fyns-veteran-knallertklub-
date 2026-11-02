@@ -18,6 +18,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     { href: "/arrangementer", label: "Arrangementer" },
     { href: "/nyheder", label: "Nyheder" },
     { href: "/galleri", label: "Galleri" },
+    { href: "/bestyrelsen", label: "Bestyrelsen" },
     ...menu.map((p) => ({ href: `/${p.slug}`, label: p.title })),
   ];
 

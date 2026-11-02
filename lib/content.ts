@@ -73,7 +73,7 @@ export function todayIso(): string {
 }
 
 // ---------- Slugs ----------
-export const RESERVED_SLUGS = ["admin", "api", "billede", "arrangementer", "nyheder", "galleri", "logo.png", "icon.png", "_next"];
+export const RESERVED_SLUGS = ["admin", "api", "billede", "arrangementer", "nyheder", "galleri", "bestyrelsen", "logo.png", "icon.png", "_next"];
 
 export function slugify(input: string): string {
   return input

@@ -94,6 +94,44 @@ export async function deletePost(fd: FormData) {
   redirect("/admin/nyheder?slettet=1");
 }
 
+// ---------- Bestyrelsen ----------
+export async function saveMember(fd: FormData) {
+  await requireAdmin();
+  const id = optInt(fd, "id");
+  const name = str(fd, "name");
+  if (!name) fail(`/admin/bestyrelsen/${id ?? "ny"}`, "Navn skal udfyldes");
+
+  const values = [
+    name,
+    optStr(fd, "role"),
+    optStr(fd, "phone"),
+    optStr(fd, "email"),
+    optStr(fd, "note"),
+    optInt(fd, "image_id"),
+    optInt(fd, "sort_order") ?? 0,
+  ];
+  if (id) {
+    await query(
+      `UPDATE board_members SET name=$1, role=$2, phone=$3, email=$4, note=$5, image_id=$6, sort_order=$7 WHERE id=$8`,
+      [...values, id]
+    );
+  } else {
+    await query(
+      `INSERT INTO board_members (name, role, phone, email, note, image_id, sort_order) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      values
+    );
+  }
+  refreshSite();
+  redirect("/admin/bestyrelsen?gemt=1");
+}
+
+export async function deleteMember(fd: FormData) {
+  await requireAdmin();
+  await query(`DELETE FROM board_members WHERE id = $1`, [optInt(fd, "id")]);
+  refreshSite();
+  redirect("/admin/bestyrelsen?slettet=1");
+}
+
 // ---------- Sider ----------
 export async function savePage(fd: FormData) {
   await requireAdmin();
@@ -144,6 +182,7 @@ export async function deleteImage(fd: FormData) {
   const id = optInt(fd, "id");
   await query(`UPDATE events SET image_id = NULL WHERE image_id = $1`, [id]);
   await query(`UPDATE posts SET image_id = NULL WHERE image_id = $1`, [id]);
+  await query(`UPDATE board_members SET image_id = NULL WHERE image_id = $1`, [id]);
   await query(`UPDATE settings SET value = '' WHERE key = 'logo_image_id' AND value = $1`, [String(id)]);
   await query(`DELETE FROM images WHERE id = $1`, [id]);
   refreshSite();

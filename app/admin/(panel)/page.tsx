@@ -8,6 +8,7 @@ export default async function AdminHome() {
        (SELECT count(*) FROM events WHERE event_date >= $1)::int AS upcoming,
        (SELECT count(*) FROM posts)::int AS posts,
        (SELECT count(*) FROM pages)::int AS pages,
+       (SELECT count(*) FROM board_members)::int AS board,
        (SELECT count(*) FROM images WHERE in_gallery)::int AS gallery`,
     [todayIso()]
   );
@@ -15,6 +16,7 @@ export default async function AdminHome() {
   const tiles = [
     { href: "/admin/arrangementer", n: c?.upcoming, label: "kommende arrangementer", add: "/admin/arrangementer/ny" },
     { href: "/admin/nyheder", n: c?.posts, label: "nyheder", add: "/admin/nyheder/ny" },
+    { href: "/admin/bestyrelsen", n: c?.board, label: "i bestyrelsen", add: "/admin/bestyrelsen/ny" },
     { href: "/admin/sider", n: c?.pages, label: "sider", add: "/admin/sider/ny" },
     { href: "/admin/galleri", n: c?.gallery, label: "billeder i galleriet" },
   ];
@@ -43,6 +45,7 @@ export default async function AdminHome() {
         <ul>
           <li><strong>Arrangementer</strong> – klubaftener, løb, stumpemarkeder. Vises på forsiden og under Arrangementer.</li>
           <li><strong>Nyheder</strong> – opslag med tekst og billede.</li>
+          <li><strong>Bestyrelsen</strong> – navn, rolle, telefon, e-mail og foto på alle bestyrelsesmedlemmer.</li>
           <li><strong>Sider</strong> – Om klubben, Bliv medlem, Kontakt … Du kan også oprette nye sider, og de kommer automatisk i menuen.</li>
           <li><strong>Billeder & galleri</strong> – upload billeder til galleriet.</li>
           <li><strong>Indstillinger & logo</strong> – klubbens navn, velkomsttekst på forsiden, kontaktinfo, Facebook-link og logo.</li>

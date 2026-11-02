@@ -82,6 +82,21 @@ const SCHEMA = [
      image_id INTEGER,
      published BOOLEAN NOT NULL DEFAULT true
    )`,
+  `CREATE TABLE IF NOT EXISTS board_members (
+     id SERIAL PRIMARY KEY,
+     name TEXT NOT NULL,
+     role TEXT,
+     phone TEXT,
+     email TEXT,
+     note TEXT,
+     image_id INTEGER,
+     sort_order INTEGER NOT NULL DEFAULT 0
+   )`,
+];
+
+const DEFAULT_BOARD = [
+  { name: "Aase Larsen", role: "Kasserer", phone: "30 55 46 83", email: "Kasserer.fvkk@gmail.com", sort: 3 },
+  { name: "Kurt Larsen", role: "Bestyrelsesmedlem", phone: "20 54 68 53", email: "", sort: 4 },
 ];
 
 const DEFAULT_SETTINGS: Record<string, string> = {
@@ -165,6 +180,16 @@ export function ensureSchema(): Promise<void> {
           );
         }
         await run(`INSERT INTO settings (key, value) VALUES ('seeded', '1') ON CONFLICT (key) DO NOTHING`, []);
+      }
+      const boardSeeded = await run(`SELECT value FROM settings WHERE key = 'seeded_board'`, []);
+      if (boardSeeded.length === 0) {
+        for (const m of DEFAULT_BOARD) {
+          await run(
+            `INSERT INTO board_members (name, role, phone, email, sort_order) VALUES ($1, $2, $3, $4, $5)`,
+            [m.name, m.role, m.phone, m.email, m.sort]
+          );
+        }
+        await run(`INSERT INTO settings (key, value) VALUES ('seeded_board', '1') ON CONFLICT (key) DO NOTHING`, []);
       }
     })().catch((err) => {
       schemaPromise = null;
